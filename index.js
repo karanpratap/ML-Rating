@@ -11,10 +11,14 @@ app.post('/', (req, res) => {
 	// spawn new child process to call the python script
 	if(!req.body.news)
 		return res.json(0);
-	const op = spawnSync('python3', ['./prediction.py', req.body.news], {encoding: "utf8"});
-	console.log(op.output);
-	dataToSend = op.stdout.split(' ');
-	dataToSend = parseFloat(dataToSend[dataToSend.length-3]);
-	res.json(dataToSend);
+	try{
+		const op = spawnSync('python3', ['./prediction.py', req.body.news], {encoding: "utf8"});
+		console.log(op.output);
+		dataToSend = op.stdout.split(' ');
+		dataToSend = parseFloat(dataToSend[dataToSend.length-3]);
+		res.json(dataToSend);
+	}catch(err){
+		res.send('Python Problem');
+	}
 })
 app.listen(port, () => console.log("App listening on port ${port}!"))
