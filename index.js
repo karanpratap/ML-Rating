@@ -1,7 +1,7 @@
 const express = require('express');
 const {spawn, spawnSync} = require('child_process');
 const app = express();
-const port = 3000;
+const port = 8080;
 //const bodyParser = require('body-parser');
 
 //app.use(bodyParser.json());
